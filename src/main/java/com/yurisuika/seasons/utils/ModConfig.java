@@ -32,7 +32,7 @@ public class ModConfig {
         public int midWinterColor;
         public int lateWinterColor;
 
-        HardcodedColors(int earlySpringColor, int midSpringColor, int lateSpringColor, int earlySummerColor, int midSummerColor, int lateSummerColor, int earlyAutumnColor, int midAutumnColor, int lateAutumnColor, int earlyWinterColor, int midWinterColor, int lateWinterColor) {
+        public HardcodedColors(int earlySpringColor, int midSpringColor, int lateSpringColor, int earlySummerColor, int midSummerColor, int lateSummerColor, int earlyAutumnColor, int midAutumnColor, int lateAutumnColor, int earlyWinterColor, int midWinterColor, int lateWinterColor) {
             this.earlySpringColor = earlySpringColor;
             this.midSpringColor = midSpringColor;
             this.lateSpringColor = lateSpringColor;
