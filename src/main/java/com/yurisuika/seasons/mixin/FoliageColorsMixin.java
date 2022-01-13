@@ -4,42 +4,26 @@ import com.yurisuika.seasons.Seasons;
 import com.yurisuika.seasons.colors.SeasonFoliageColors;
 import net.minecraft.client.color.world.FoliageColors;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = FoliageColors.class, priority = 2000)
 public class FoliageColorsMixin {
 
-    /**
-     * @author
-     * Seasons
-     * @reason
-     * Spruce Color OptiFine Compatibility
-     */
-    @Overwrite()
-    public static int getSpruceColor() {
-        return SeasonFoliageColors.getSpruceColor(Seasons.getCurrentSeason());
+    @Inject(method = "getSpruceColor", at = @At("RETURN"), cancellable = true)
+    private static void injectSpruceColor(CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(SeasonFoliageColors.getSpruceColor(Seasons.getCurrentSeason()));
     }
 
-    /**
-     * @author
-     * Seasons
-     * @reason
-     * Birch Color OptiFine Compatibility
-     */
-    @Overwrite()
-    public static int getBirchColor() {
-        return SeasonFoliageColors.getBirchColor(Seasons.getCurrentSeason());
+    @Inject(method = "getBirchColor", at = @At("RETURN"), cancellable = true)
+    private static void injectBirchColor(CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(SeasonFoliageColors.getBirchColor(Seasons.getCurrentSeason()));
     }
 
-    /**
-     * @author
-     * Seasons
-     * @reason
-     * Default Color OptiFine Compatibility
-     */
-    @Overwrite()
-    public static int getDefaultColor() {
-        return SeasonFoliageColors.getDefaultColor(Seasons.getCurrentSeason());
+    @Inject(method = "getDefaultColor", at = @At("RETURN"), cancellable = true)
+    private static void injectDefaultColor(CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(SeasonFoliageColors.getDefaultColor(Seasons.getCurrentSeason()));
     }
 
 }

@@ -13,24 +13,24 @@ import java.util.Optional;
 @SuppressWarnings({"FieldMayBeFinal", "FieldCanBeLocal", "MismatchedQueryAndUpdateOfCollection", "unused"})
 public class ModConfig {
 
-    private static class SeasonLock {
-        private boolean isSeasonLocked = false;
-        private Season lockedSeason = Season.EARLY_SPRING;
+    public static class SeasonLock {
+        public boolean isSeasonLocked = false;
+        public Season lockedSeason = Season.EARLY_SPRING;
     }
 
     public static class HardcodedColors {
-        private int earlySpringColor;
-        private int midSpringColor;
-        private int lateSpringColor;
-        private int earlySummerColor;
-        private int midSummerColor;
-        private int lateSummerColor;
-        private int earlyAutumnColor;
-        private int midAutumnColor;
-        private int lateAutumnColor;
-        private int earlyWinterColor;
-        private int midWinterColor;
-        private int lateWinterColor;
+        public int earlySpringColor;
+        public int midSpringColor;
+        public int lateSpringColor;
+        public int earlySummerColor;
+        public int midSummerColor;
+        public int lateSummerColor;
+        public int earlyAutumnColor;
+        public int midAutumnColor;
+        public int lateAutumnColor;
+        public int earlyWinterColor;
+        public int midWinterColor;
+        public int lateWinterColor;
 
         HardcodedColors(int earlySpringColor, int midSpringColor, int lateSpringColor, int earlySummerColor, int midSummerColor, int lateSummerColor, int earlyAutumnColor, int midAutumnColor, int lateAutumnColor, int earlyWinterColor, int midWinterColor, int lateWinterColor) {
             this.earlySpringColor = earlySpringColor;
@@ -65,10 +65,10 @@ public class ModConfig {
         }
     }
 
-    private static class BiomeColors {
+    public static class BiomeColors {
 
-        private String biomeIdentifier;
-        private HardcodedColors colors;
+        public String biomeIdentifier;
+        public HardcodedColors colors;
 
         BiomeColors() {
             this.biomeIdentifier = "";
@@ -83,32 +83,32 @@ public class ModConfig {
     }
 
 
-    private int seasonLength = 240000;
+    public int seasonLength = 240000;
 
-    private SeasonLock seasonLock = new SeasonLock();
+    public SeasonLock seasonLock = new SeasonLock();
 
-    private List<String> dimensionWhitelist = List.of("minecraft:overworld");
+    public List<String> dimensionWhitelist = List.of("minecraft:overworld");
 
-    private boolean doTemperatureChanges = true;
+    public boolean doTemperatureChanges = true;
 
-    private boolean isSeasonTiedWithSystemTime = false;
+    public boolean isSeasonTiedWithSystemTime = false;
 
-    private boolean isInNorthHemisphere = true;
+    public boolean isInNorthHemisphere = true;
 
-    private HardcodedColors minecraftDefaultFoliage = new HardcodedColors(0x768153, 0x6E8251, 0x668450, 0x6E8054, 0x757F55, 0x827D51, 0x886E4C, 0x846150, 0x816653, 0x806954, 0x7F6D55, 0x7F7E55);
-    private HardcodedColors minecraftSpruceFoliage = new HardcodedColors(0x647855, 0x637955, 0x647855, 0x657855, 0x677856, 0x677756, 0x687756, 0x6A7757, 0x687756, 0x677756, 0x677856, 0x657855);
-    private HardcodedColors minecraftBirchFoliage = new HardcodedColors(0x8B9A6C, 0x829B6A, 0x7A9D69, 0x83996D, 0x8A986E, 0x9B9B6A, 0xA19765, 0xA58E60, 0x9D8369, 0x9A876C, 0x998A6D, 0x95996D);
-    private HardcodedColors minecraftSwampGrass1 = new HardcodedColors(0x72774C, 0x70774B, 0x72774C, 0x72764C, 0x74764D, 0x98986E, 0x75744D, 0x75734E, 0x75744D, 0x75764D, 0x74764D, 0x72764C);
-    private HardcodedColors minecraftSwampGrass2 = new HardcodedColors(0x7C8054, 0x7A8053, 0x7C8054, 0x7C7F54, 0x7E7F55, 0x7F7F55, 0x7E7C55, 0x7E7B56, 0x7E7C55, 0x7F7F55, 0x7E7F55, 0x7C7F54);
-    private HardcodedColors minecraftBadlandsGrass = new HardcodedColors(0xB3B07D, 0xB1B37D, 0xB3B07D, 0xB3AC7D, 0xB3A77D, 0xB3A37D, 0xB39E7D, 0xB39A7D, 0xB39E7D, 0xB3A37D, 0xB3A77D, 0xB3AC7D);
-    private HardcodedColors minecraftBadlandsFoliage = new HardcodedColors(0x898E64, 0x888E64, 0x898E64, 0x8B8E64, 0x8C8E64, 0x8E8E64, 0x8E8D64, 0x8E8B64, 0x8E8D64, 0x8E8E64, 0x8C8E64, 0x8B8E64);
+    public HardcodedColors minecraftDefaultFoliage = new HardcodedColors(0x44BD0F, 0x23C20A, 0x05C80A, 0x2AB814, 0x48B518, 0x7FC20A, 0xC7CD00, 0xC89C05, 0xBDA50F, 0xB8AE14, 0xB0B518, 0x6FB518);
+    public HardcodedColors minecraftSpruceFoliage = new HardcodedColors(0x5E9C68, 0x5D9C6A, 0x5E9C68, 0x5E9B66, 0x5F9A65, 0x609A64, 0x609962, 0x619961, 0x609962, 0x609A64, 0x5F9A65, 0x5E9B66);
+    public HardcodedColors minecraftBirchFoliage = new HardcodedColors(0x80AB50, 0x70AE4E, 0x5FB14B, 0x72A953, 0x80A755, 0xA0AE4E, 0xB8B543, 0xC1A73A, 0xB18C4B, 0xAB9250, 0xA99853, 0x96A953);
+    public HardcodedColors minecraftSwampGrass1 = new HardcodedColors(0x407939, 0x3D7A38, 0x407939, 0x427839, 0x45783A, 0x47773B, 0x49763B, 0x4C763C, 0x49763B, 0x47773B, 0x45783A, 0x427839);
+    public HardcodedColors minecraftSwampGrass2 = new HardcodedColors(0x627336, 0x607335, 0x627336, 0x637236, 0x657137, 0x677138, 0x687038, 0x6A7039, 0x687038, 0x677138, 0x657137, 0x637236);
+    public HardcodedColors minecraftBadlandsGrass = new HardcodedColors(0x907B4D, 0x90814D, 0x907B4D, 0x90764D, 0x90704D, 0x906B4D, 0x90654D, 0x90604D, 0x90654D, 0x906B4D, 0x90704D, 0x90764D);
+    public HardcodedColors minecraftBadlandsFoliage = new HardcodedColors(0x9E7E4D, 0x9E814D, 0x9E7E4D, 0x9E7C4D, 0x9E794D, 0x9E764D, 0x9E744D, 0x9E714D, 0x9E744D, 0x9E764D, 0x9E794D, 0x9E7C4D);
 
-    private boolean isDefaultHSBShiftEnabled = false;
+    public boolean isDefaultHSBShiftEnabled = false;
 
-    private static class HSBShift {
-        private float hue;
-        private float saturation;
-        private float brightness;
+    public static class HSBShift {
+        public float hue;
+        public float saturation;
+        public float brightness;
 
         public HSBShift(float hue, float saturation, float brightness) {
             this.hue = hue;
@@ -117,19 +117,19 @@ public class ModConfig {
         }
     }
 
-    private static class DefaultHSBShift {
-        private HSBShift earlySpringHSBShift = new HSBShift(0f, 95f, -10f);
-        private HSBShift midSpringHSBShift = new HSBShift(0f, 100f, 0f);
-        private HSBShift lateSpringHSBShift = new HSBShift(0f, 120f, -4f);
-        private HSBShift earlySummerHSBShift = new HSBShift(0f, 130f, -8f);
-        private HSBShift midSummerHSBShift = new HSBShift(0f, 150f, -10f);
-        private HSBShift lateSummerHSBShift = new HSBShift(0f, 140f, -12f);
-        private HSBShift earlyAutumnHSBShift = new HSBShift(-65f, 135f, -13f);
-        private HSBShift midAutumnHSBShift = new HSBShift(-65f, 125f, -15f);
-        private HSBShift lateAutumnHSBShift = new HSBShift(-65f, 110f, -25f);
-        private HSBShift earlyWinterHSBShift = new HSBShift(-65f, 95f, -30f);
-        private HSBShift midWinterHSBShift = new HSBShift(-65f, 80f, -40f);
-        private HSBShift lateWinterHSBShift = new HSBShift(-65f, 85f, -20f);
+    public static class DefaultHSBShift {
+        public HSBShift earlySpringHSBShift = new HSBShift(0f, 95f, -10f);
+        public HSBShift midSpringHSBShift = new HSBShift(0f, 100f, 0f);
+        public HSBShift lateSpringHSBShift = new HSBShift(0f, 120f, -4f);
+        public HSBShift earlySummerHSBShift = new HSBShift(0f, 130f, -8f);
+        public HSBShift midSummerHSBShift = new HSBShift(0f, 150f, -10f);
+        public HSBShift lateSummerHSBShift = new HSBShift(0f, 140f, -12f);
+        public HSBShift earlyAutumnHSBShift = new HSBShift(-65f, 135f, -13f);
+        public HSBShift midAutumnHSBShift = new HSBShift(-65f, 125f, -15f);
+        public HSBShift lateAutumnHSBShift = new HSBShift(-65f, 110f, -25f);
+        public HSBShift earlyWinterHSBShift = new HSBShift(-65f, 95f, -30f);
+        public HSBShift midWinterHSBShift = new HSBShift(-65f, 80f, -40f);
+        public HSBShift lateWinterHSBShift = new HSBShift(-65f, 85f, -20f);
 
         public HSBShift getHSBShift(Season season) {
             return switch (season) {
@@ -151,12 +151,12 @@ public class ModConfig {
     }
 
 
-    private DefaultHSBShift defaultHSBShift = new DefaultHSBShift();
+    public DefaultHSBShift defaultHSBShift = new DefaultHSBShift();
 
-    private final List<BiomeColors> foliageColorList = new ArrayList<>();
-    private final List<BiomeColors> grassColorList = new ArrayList<>();
+    public final List<BiomeColors> foliageColorList = new ArrayList<>();
+    public final List<BiomeColors> grassColorList = new ArrayList<>();
 
-    private int getShiftedColor(Season season, int defaultColor) {
+    public int getShiftedColor(Season season, int defaultColor) {
         Color initialColor = new Color(defaultColor);
         HSBShift hueShift = defaultHSBShift.getHSBShift(season);
         Color finalColor = ColorHelper.changeHueSatBri(initialColor, hueShift.hue, hueShift.saturation, hueShift.brightness);
@@ -188,9 +188,9 @@ public class ModConfig {
         return color;
     }
 
-    private static class DefaultCropConfig {
+    public static class DefaultCropConfig {
 
-        private float earlySpringModifier, midSpringModifier, lateSpringModifier, earlySummerModifier, midSummerModifier, lateSummerModifier, earlyAutumnModifier, midAutumnModifier, lateAutumnModifier, earlyWinterModifier, midWinterModifier, lateWinterModifier;
+        public float earlySpringModifier, midSpringModifier, lateSpringModifier, earlySummerModifier, midSummerModifier, lateSummerModifier, earlyAutumnModifier, midAutumnModifier, lateAutumnModifier, earlyWinterModifier, midWinterModifier, lateWinterModifier;
 
         public DefaultCropConfig(float earlySpringModifier, float midSpringModifier, float lateSpringModifier, float earlySummerModifier, float midSummerModifier, float lateSummerModifier, float earlyAutumnModifier, float midAutumnModifier, float lateAutumnModifier, float earlyWinterModifier, float midWinterModifier, float lateWinterModifier) {
             this.earlySpringModifier = earlySpringModifier;
@@ -225,10 +225,10 @@ public class ModConfig {
         }
     }
 
-    private static class CropConfig {
+    public static class CropConfig {
 
-        private String cropIdentifier;
-        private float earlySpringModifier, midSpringModifier, lateSpringModifier, earlySummerModifier, midSummerModifier, lateSummerModifier, earlyAutumnModifier, midAutumnModifier, lateAutumnModifier, earlyWinterModifier, midWinterModifier, lateWinterModifier;
+        public String cropIdentifier;
+        public float earlySpringModifier, midSpringModifier, lateSpringModifier, earlySummerModifier, midSummerModifier, lateSummerModifier, earlyAutumnModifier, midAutumnModifier, lateAutumnModifier, earlyWinterModifier, midWinterModifier, lateWinterModifier;
 
         public CropConfig() {
             this.cropIdentifier = "";
@@ -281,20 +281,20 @@ public class ModConfig {
 
     }
 
-    private boolean isSeasonMessingCrops = true;
-    private boolean isSeasonMessingBonemeal = false;
-    private boolean doCropsGrowsNormallyUnderground = false;
+    public boolean isSeasonMessingCrops = true;
+    public boolean isSeasonMessingBonemeal = false;
+    public boolean doCropsGrowsNormallyUnderground = false;
 
-    private DefaultCropConfig defaultCropConfig = new DefaultCropConfig(0.6f, 0.8f, 1.0f, 0.9f, 0.8f, 0.7f, 0.6f, 0.5f, 0.3f, 0.1f, 0.0f, 0.0f);
+    public DefaultCropConfig defaultCropConfig = new DefaultCropConfig(0.6f, 0.8f, 1.0f, 0.9f, 0.8f, 0.7f, 0.6f, 0.5f, 0.3f, 0.1f, 0.0f, 0.0f);
 
-    private final List<CropConfig> cropConfigs = new ArrayList<>();
+    public final List<CropConfig> cropConfigs = new ArrayList<>();
 
     public float getSeasonCropMultiplier(Identifier cropIdentifier, Season season) {
         Optional<CropConfig> config = cropConfigs.stream().filter(it -> it.cropIdentifier.equals(cropIdentifier.toString())).findFirst();
         return config.map(cropConfig -> cropConfig.getModifier(season)).orElse(defaultCropConfig.getModifier(season));
     }
 
-    private boolean doAnimalsBreedInWinter = false;
+    public boolean doAnimalsBreedInWinter = false;
 
     public boolean doAnimalsBreedInWinter() {
         return doAnimalsBreedInWinter;
