@@ -1,0 +1,22 @@
+{
+  "tooltip.seasonal.early_spring": "§fEarly Spring",
+  "tooltip.seasonal.mid_spring": "§fMid Spring",
+  "tooltip.seasonal.late_spring": "§fLate Spring",
+  "tooltip.seasonal.early_summer": "§fEarly Summer",
+  "tooltip.seasonal.mid_summer": "§fMid Summer",
+  "tooltip.seasonal.late_summer": "§fLate Summer",
+  "tooltip.seasonal.early_autumn": "§fEarly Autumn",
+  "tooltip.seasonal.mid_autumn": "§fMid Autumn",
+  "tooltip.seasonal.late_autumn": "§fLate Autumn",
+  "tooltip.seasonal.early_winter": "§fEarly Winter",
+  "tooltip.seasonal.mid_winter": "§fMid Winter",
+  "tooltip.seasonal.late_winter": "§fLate Winter",
+  "tooltip.seasonal.calendar_info_1": "§7Currently on: ",
+  "tooltip.seasonal.calendar_info_2": " §7days left to ",
+  "tooltip.seasonal.faster_grow": "§fThis plant will grow faster this season",
+  "tooltip.seasonal.normal_grow": "§fThis plant will grow normally this season",
+  "tooltip.seasonal.slowed_grow": "§fThis plant will take longer grow this season",
+  "tooltip.seasonal.not_grow": "§fThis plant will not grow this season",
+  "tooltip.seasonal.show_more": "§7Press §f{KEY} §7to show more:",
+  "tooltip.seasonal.crop_multipliers": "§7How this plant is affected by:"
+}

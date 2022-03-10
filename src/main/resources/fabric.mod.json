@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "seasons",
+  "id": "seasonal",
   "version": "${version}",
 
-  "name": "Seasons",
-  "description": "Seasons - as the days go by.",
+  "name": "Seasonal",
+  "description": "Seasonal - as the days go by.",
   "authors": [
     "D4rkness_King"
   ],  "contributors": [
@@ -17,25 +17,25 @@
   },
 
   "license": "Mozilla Public License 2.0",
-  "icon": "assets/seasons/icon.png",
+  "icon": "assets/seasonal/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.yurisuika.seasons.Seasons"
+      "com.yurisuika.seasonal.Seasonal"
     ],
     "client": [
-      "com.yurisuika.seasons.SeasonsClient"
+      "com.yurisuika.seasonal.SeasonalClient"
     ]
   },
   "mixins": [
-    "seasons.mixins.json"
+    "seasonal.mixins.json"
   ],
 
-  "accessWidener" : "seasons.accesswidener",
+  "accessWidener" : "seasonal.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.11.6",
+    "fabricloader": ">=0.13.3",
     "fabric": "*",
     "minecraft": "1.18.x",
     "java": ">=17"
