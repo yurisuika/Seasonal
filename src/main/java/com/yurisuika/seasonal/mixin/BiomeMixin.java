@@ -1,13 +1,15 @@
 package com.yurisuika.seasonal.mixin;
 
+import com.mojang.serialization.Codec;
 import com.yurisuika.seasonal.Seasonal;
 import com.yurisuika.seasonal.colors.SeasonFoliageColors;
 import com.yurisuika.seasonal.colors.SeasonGrassColors;
 import com.yurisuika.seasonal.utils.ColorsCache;
-import com.yurisuika.seasonal.utils.Season;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
@@ -22,18 +24,18 @@ import java.util.Optional;
 @Mixin(Biome.class)
 public class BiomeMixin {
 
-    @Shadow @Final private Biome.Category category;
+    @Shadow @Final public static Codec<RegistryEntry<Biome>> REGISTRY_CODEC;
 
     @SuppressWarnings("ConstantConditions")
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/BiomeEffects;getGrassColor()Ljava/util/Optional;"), method = "getGrassColorAt")
     public Optional<Integer> getSeasonGrassColor(BiomeEffects effects) {
         Biome biome = (Biome) ((Object) this);
+        World world = MinecraftClient.getInstance().world;
         if(ColorsCache.hasGrassCache(biome)) {
             return ColorsCache.getGrassCache(biome);
         }
-        else if(category == Biome.Category.MESA) {
+        else if(RegistryEntry.of(biome).isIn(BiomeTags.IS_BADLANDS)) {
             Optional<Integer> returnColor = effects.getGrassColor();
-            World world = MinecraftClient.getInstance().world;
             if(world != null) {
                 Optional<Integer> badlandsGrassColor = Optional.of(Seasonal.CONFIG.getMinecraftBadlandsGrass().getColor(Seasonal.getCurrentSeason()));
                 if(badlandsGrassColor.isPresent()) {
@@ -45,7 +47,6 @@ public class BiomeMixin {
         }
         else {
             Optional<Integer> returnColor = effects.getGrassColor();
-            World world = MinecraftClient.getInstance().world;
             if(world != null) {
                 Identifier biomeIdentifier = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome);
                 Optional<Integer> seasonGrassColor = Seasonal.CONFIG.getSeasonGrassColor(biome, biomeIdentifier, Seasonal.getCurrentSeason());
@@ -62,12 +63,12 @@ public class BiomeMixin {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/BiomeEffects;getFoliageColor()Ljava/util/Optional;"), method = "getFoliageColor")
     public Optional<Integer> getSeasonFoliageColor(BiomeEffects effects) {
         Biome biome = (Biome) ((Object) this);
+        World world = MinecraftClient.getInstance().world;
         if(ColorsCache.hasFoliageCache(biome)) {
             return ColorsCache.getFoliageCache(biome);
         }
-        else if(category == Biome.Category.MESA) {
+        else if(RegistryEntry.of(biome).isIn(BiomeTags.IS_BADLANDS)) {
             Optional<Integer> returnColor = effects.getFoliageColor();
-            World world = MinecraftClient.getInstance().world;
             if(world != null) {
                 Optional<Integer> badlandsFoliageColor = Optional.of(Seasonal.CONFIG.getMinecraftBadlandsFoliage().getColor(Seasonal.getCurrentSeason()));
                 if(badlandsFoliageColor.isPresent()) {
@@ -79,7 +80,6 @@ public class BiomeMixin {
         }
         else{
             Optional<Integer> returnColor = effects.getFoliageColor();
-            World world = MinecraftClient.getInstance().world;
             if(world != null) {
                 Identifier biomeIdentifier = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome);
                 Optional<Integer> seasonFoliageColor = Seasonal.CONFIG.getSeasonFoliageColor(biome, biomeIdentifier, Seasonal.getCurrentSeason());

@@ -1,13 +1,13 @@
 plugins {
-	id 'fabric-loom' version '0.11-SNAPSHOT'
+	id 'fabric-loom' version '1.0-SNAPSHOT'
 	id 'maven-publish'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-archivesBaseName = project.archives_base_name
-version = "${minecraft_version}-${mod_version}"
+archivesBaseName = "${project.archives_base_name}-fabric-${project.minecraft_version}"
+version = project.mod_version
 group = project.maven_group
 
 repositories {
@@ -25,14 +25,13 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	modCompileOnly "com.github.yurisuika:Catherine:Fabric-1.18-SNAPSHOT"
-//	modCompileOnly "com.github.RandomMcSomethin:fallingleaves:1.9.0"
-	modCompileOnly ("curse.maven:fallingleaves-417510:3668032") {
+	modCompileOnly ("curse.maven:fallingleaves-417510:4101831") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
-	modCompileOnly ("com.terraformersmc:modmenu:3.0.1") {
+	modCompileOnly ("com.terraformersmc:modmenu:4.1.2") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
-	modCompileOnly ("me.shedaniel.cloth:cloth-config-fabric:6.2.57") {
+	modCompileOnly ("me.shedaniel.cloth:cloth-config-fabric:8.2.88") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 

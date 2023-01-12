@@ -11,7 +11,7 @@ import com.yurisuika.seasonal.utils.WeatherCache;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -22,8 +22,9 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.tag.BiomeTags;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
@@ -91,7 +92,7 @@ public class Seasonal implements ModInitializer {
             LOGGER.warn("Defaulting to original config.");
         }
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> SeasonCommand.register(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, dedicated) -> SeasonCommand.register(dispatcher, registryAccess));
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             SEEDS_MAP.clear();
@@ -222,21 +223,19 @@ public class Seasonal implements ModInitializer {
     public static void injectBiomeTemperature(RegistryEntry<Biome> biome, World world) {
         if(!CONFIG.doTemperatureChanges()) return;
 
-        List<Biome.Category> ignoredCategories = Arrays.asList(Biome.Category.NONE, Biome.Category.NETHER, Biome.Category.THEEND, Biome.Category.OCEAN);
-        if(ignoredCategories.contains(biome.value().getCategory())) return;
+        List<TagKey<Biome>> ignoredCategories = Arrays.asList(BiomeTags.IS_NETHER, BiomeTags.IS_END, BiomeTags.IS_OCEAN);
+        if(ignoredCategories.stream().anyMatch(biome::isIn)) return;
 
         Season season = Seasonal.getCurrentSeason(world);
-        Biome biomeId = biome.value();
 
-        Identifier biomeIdentifier = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biomeId);
+        Identifier biomeIdentifier = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome.value());
         Biome.Weather currentWeather = biome.value().weather;
 
         Biome.Weather originalWeather;
         if (!WeatherCache.hasCache(biomeIdentifier)) {
             originalWeather = new Biome.Weather(currentWeather.precipitation, currentWeather.temperature, currentWeather.temperatureModifier, currentWeather.downfall);
             WeatherCache.setCache(biomeIdentifier, originalWeather);
-        }
-        else {
+        } else {
             originalWeather = WeatherCache.getCache(biomeIdentifier);
         }
 
@@ -244,34 +243,34 @@ public class Seasonal implements ModInitializer {
             return;
         }
         float temp = originalWeather.temperature;
-        if(biome.value().getCategory() == Biome.Category.JUNGLE || biome.value().getCategory() == Biome.Category.SWAMP) {
+        if(biome.isIn(BiomeTags.IS_JUNGLE) || biome.isIn(BiomeTags.HAS_CLOSER_WATER_FOG)) {
             //Jungle Biomes
             if (season == Season.EARLY_WINTER | season == Season.MID_WINTER | season == Season.LATE_WINTER) {
-                ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                ((WeatherAccessor) currentWeather).setTemperature(temp-0.1f);
+                ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                ((WeatherAccessor) (Object) currentWeather).setTemperature(temp - 0.1f);
             } else {
-                ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                ((WeatherAccessor) currentWeather).setTemperature(temp);
+                ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                ((WeatherAccessor) (Object) currentWeather).setTemperature(temp);
             }
         }
-        else if(biome.value().getCategory() == Biome.Category.MESA) {
+        else if(biome.isIn(BiomeTags.IS_BADLANDS)) {
             //Badlands Biomes
             switch (season) {
                 case EARLY_SPRING, MID_SPRING, LATE_SPRING -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp);
                 }
                 case EARLY_SUMMER, MID_SUMMER, LATE_SUMMER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp + 0.2f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp + 0.2f);
                 }
                 case EARLY_WINTER, MID_WINTER, LATE_WINTER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(Biome.Precipitation.SNOW);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp - 2.0f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(Biome.Precipitation.SNOW);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp - 2.0f);
                 }
                 default -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp);
                 }
             }
         }
@@ -279,16 +278,16 @@ public class Seasonal implements ModInitializer {
             //Frozen Biomes
             switch (season) {
                 case EARLY_SUMMER, MID_SUMMER, LATE_SUMMER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp + 0.3f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp + 0.3f);
                 }
                 case EARLY_WINTER, MID_WINTER, LATE_WINTER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(Biome.Precipitation.SNOW);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp - 0.2f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(Biome.Precipitation.SNOW);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp - 0.2f);
                 }
                 default -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp);
                 }
             }
         }
@@ -296,20 +295,20 @@ public class Seasonal implements ModInitializer {
             //Cold Biomes
             switch (season) {
                 case EARLY_SPRING, MID_SPRING, LATE_SPRING -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp);
                 }
                 case EARLY_SUMMER, MID_SUMMER, LATE_SUMMER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp + 0.2f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp + 0.2f);
                 }
                 case EARLY_WINTER, MID_WINTER, LATE_WINTER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(Biome.Precipitation.SNOW);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp - 0.2f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(Biome.Precipitation.SNOW);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp - 0.2f);
                 }
                 default -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp);
                 }
             }
         }
@@ -317,20 +316,20 @@ public class Seasonal implements ModInitializer {
             //Temperate Biomes
             switch (season) {
                 case EARLY_SUMMER, MID_SUMMER, LATE_SUMMER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp + 0.2f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp + 0.2f);
                 }
                 case EARLY_AUTUMN, MID_AUTUMN, LATE_AUTUMN -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp - 0.1f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp - 0.1f);
                 }
                 case EARLY_WINTER, MID_WINTER, LATE_WINTER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(Biome.Precipitation.SNOW);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp - 0.7f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(Biome.Precipitation.SNOW);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp - 0.7f);
                 }
                 default -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp);
                 }
             }
         }
@@ -338,16 +337,16 @@ public class Seasonal implements ModInitializer {
             //Hot Biomes
             switch (season) {
                 case EARLY_SUMMER, MID_SUMMER, LATE_SUMMER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp + 0.2f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp + 0.2f);
                 }
                 case EARLY_WINTER, MID_WINTER, LATE_WINTER -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp - 0.2f);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(Biome.Precipitation.RAIN);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp - 0.2f);
                 }
                 default -> {
-                    ((WeatherAccessor) currentWeather).setPrecipitation(originalWeather.precipitation);
-                    ((WeatherAccessor) currentWeather).setTemperature(temp);
+                    ((WeatherAccessor) (Object) currentWeather).setPrecipitation(originalWeather.precipitation);
+                    ((WeatherAccessor) (Object) currentWeather).setTemperature(temp);
                 }
             }
         }

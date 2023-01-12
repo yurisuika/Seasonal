@@ -9,16 +9,15 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
 
-import java.util.Random;
-
 public class SeasonalSnowBlock extends SnowBlock {
 
     public SeasonalSnowBlock(Settings settings) {
         super(settings);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random) {
         if (world.getLightLevel(LightType.SKY, pos) > 0 && world.getBiome(pos).value().getTemperature(pos) >= 0.15F) {
             Block.dropStacks(state, world, pos);
             world.removeBlock(pos, false);
