@@ -93,15 +93,15 @@ public class SeasonFoliageColors {
     }
 
     public static int getSpruceColor(Season season) {
-        return Seasonal.CONFIG.getMinecraftSpruceFoliage().getColor(season);
+        return Seasonal.CONFIG.getSpruceFoliage().getColor(season);
     }
 
     public static int getBirchColor(Season season) {
-        return Seasonal.CONFIG.getMinecraftBirchFoliage().getColor(season);
+        return Seasonal.CONFIG.getBirchFoliage().getColor(season);
     }
 
     public static int getDefaultColor(Season season) {
-        return Seasonal.CONFIG.getMinecraftDefaultFoliage().getColor(season);
+        return Seasonal.CONFIG.getDefaultFoliage().getColor(season);
     }
 
 }

@@ -24,7 +24,6 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modCompileOnly "com.github.yurisuika:Catherine:Fabric-1.18-SNAPSHOT"
 	modCompileOnly ("curse.maven:fallingleaves-417510:4101831") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}

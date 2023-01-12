@@ -1,8 +1,7 @@
 package com.yurisuika.seasonal.utils;
 
-import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
@@ -96,21 +95,13 @@ public class ModConfig {
 
     public boolean isInNorthHemisphere = true;
 
-    public HardcodedColors minecraftDefaultFoliage = new HardcodedColors(0x44BD0F, 0x23C20A, 0x05C80A, 0x2AB814, 0x48B518, 0x7FC20A, 0xC7CD00, 0xC89C05, 0xBDA50F, 0xB8AE14, 0xB0B518, 0x6FB518);
-    public HardcodedColors minecraftSpruceFoliage = new HardcodedColors(0x5E9C68, 0x5D9C6A, 0x5E9C68, 0x5E9B66, 0x5F9A65, 0x609A64, 0x609962, 0x619961, 0x609962, 0x609A64, 0x5F9A65, 0x5E9B66);
-    public HardcodedColors minecraftBirchFoliage = new HardcodedColors(0x80AB50, 0x70AE4E, 0x5FB14B, 0x72A953, 0x80A755, 0xA0AE4E, 0xB8B543, 0xC1A73A, 0xB18C4B, 0xAB9250, 0xA99853, 0x96A953);
-    public HardcodedColors minecraftSwampGrass1 = new HardcodedColors(0x407939, 0x3D7A38, 0x407939, 0x427839, 0x45783A, 0x47773B, 0x49763B, 0x4C763C, 0x49763B, 0x47773B, 0x45783A, 0x427839);
-    public HardcodedColors minecraftSwampGrass2 = new HardcodedColors(0x627336, 0x607335, 0x627336, 0x637236, 0x657137, 0x677138, 0x687038, 0x6A7039, 0x687038, 0x677138, 0x657137, 0x637236);
-    public HardcodedColors minecraftBadlandsGrass = new HardcodedColors(0x907B4D, 0x90814D, 0x907B4D, 0x90764D, 0x90704D, 0x906B4D, 0x90654D, 0x90604D, 0x90654D, 0x906B4D, 0x90704D, 0x90764D);
-    public HardcodedColors minecraftBadlandsFoliage = new HardcodedColors(0x9E7E4D, 0x9E814D, 0x9E7E4D, 0x9E7C4D, 0x9E794D, 0x9E764D, 0x9E744D, 0x9E714D, 0x9E744D, 0x9E764D, 0x9E794D, 0x9E7C4D);
-
-    private HardcodedColors isabellaDefaultFoliage = new HardcodedColors(0x768153, 0x6E8251, 0x668450, 0x6E8054, 0x757F55, 0x827D51, 0x886E4C, 0x846150, 0x816653, 0x806954, 0x7F6D55, 0x7F7E55);
-    private HardcodedColors isabellaSpruceFoliage = new HardcodedColors(0x647855, 0x637955, 0x647855, 0x657855, 0x677856, 0x677756, 0x687756, 0x6A7757, 0x687756, 0x677756, 0x677856, 0x657855);
-    private HardcodedColors isabellaBirchFoliage = new HardcodedColors(0x8B9A6C, 0x829B6A, 0x7A9D69, 0x83996D, 0x8A986E, 0x9B9B6A, 0xA19765, 0xA58E60, 0x9D8369, 0x9A876C, 0x998A6D, 0x95996D);
-    private HardcodedColors isabellaSwampGrass1 = new HardcodedColors(0x72774C, 0x70774B, 0x72774C, 0x72764C, 0x74764D, 0x98986E, 0x75744D, 0x75734E, 0x75744D, 0x75764D, 0x74764D, 0x72764C);
-    private HardcodedColors isabellaSwampGrass2 = new HardcodedColors(0x7C8054, 0x7A8053, 0x7C8054, 0x7C7F54, 0x7E7F55, 0x7F7F55, 0x7E7C55, 0x7E7B56, 0x7E7C55, 0x7F7F55, 0x7E7F55, 0x7C7F54);
-    private HardcodedColors isabellaBadlandsGrass = new HardcodedColors(0xB3B07D, 0xB1B37D, 0xB3B07D, 0xB3AC7D, 0xB3A77D, 0xB3A37D, 0xB39E7D, 0xB39A7D, 0xB39E7D, 0xB3A37D, 0xB3A77D, 0xB3AC7D);
-    private HardcodedColors isabellaBadlandsFoliage = new HardcodedColors(0x898E64, 0x888E64, 0x898E64, 0x8B8E64, 0x8C8E64, 0x8E8E64, 0x8E8D64, 0x8E8B64, 0x8E8D64, 0x8E8E64, 0x8C8E64, 0x8B8E64);
+    public HardcodedColors defaultFoliage = new HardcodedColors(0x44BD0F, 0x23C20A, 0x05C80A, 0x2AB814, 0x48B518, 0x7FC20A, 0xC7CD00, 0xC89C05, 0xBDA50F, 0xB8AE14, 0xB0B518, 0x6FB518);
+    public HardcodedColors spruceFoliage = new HardcodedColors(0x5E9C68, 0x5D9C6A, 0x5E9C68, 0x5E9B66, 0x5F9A65, 0x609A64, 0x609962, 0x619961, 0x609962, 0x609A64, 0x5F9A65, 0x5E9B66);
+    public HardcodedColors birchFoliage = new HardcodedColors(0x80AB50, 0x70AE4E, 0x5FB14B, 0x72A953, 0x80A755, 0xA0AE4E, 0xB8B543, 0xC1A73A, 0xB18C4B, 0xAB9250, 0xA99853, 0x96A953);
+    public HardcodedColors swampGrass1 = new HardcodedColors(0x407939, 0x3D7A38, 0x407939, 0x427839, 0x45783A, 0x47773B, 0x49763B, 0x4C763C, 0x49763B, 0x47773B, 0x45783A, 0x427839);
+    public HardcodedColors swampGrass2 = new HardcodedColors(0x627336, 0x607335, 0x627336, 0x637236, 0x657137, 0x677138, 0x687038, 0x6A7039, 0x687038, 0x677138, 0x657137, 0x637236);
+    public HardcodedColors badlandsGrass = new HardcodedColors(0x907B4D, 0x90814D, 0x907B4D, 0x90764D, 0x90704D, 0x906B4D, 0x90654D, 0x90604D, 0x90654D, 0x906B4D, 0x90704D, 0x90764D);
+    public HardcodedColors badlandsFoliage = new HardcodedColors(0x9E7E4D, 0x9E814D, 0x9E7E4D, 0x9E7C4D, 0x9E794D, 0x9E764D, 0x9E744D, 0x9E714D, 0x9E744D, 0x9E764D, 0x9E794D, 0x9E7C4D);
 
     public boolean isDefaultHSBShiftEnabled = false;
 
@@ -303,7 +294,7 @@ public class ModConfig {
         return config.map(cropConfig -> cropConfig.getModifier(season)).orElse(defaultCropConfig.getModifier(season));
     }
 
-    public boolean doAnimalsBreedInWinter = true;
+    public boolean doAnimalsBreedInWinter = false;
 
     public boolean doAnimalsBreedInWinter() {
         return doAnimalsBreedInWinter;
@@ -321,74 +312,32 @@ public class ModConfig {
         return doCropsGrowsNormallyUnderground;
     }
 
-    public HardcodedColors getMinecraftDefaultFoliage() {
-        FabricLoader loader = FabricLoader.getInstance();
-        if (loader.isModLoaded("catherine")) {
-            return isabellaDefaultFoliage;
-        }
-        else {
-            return minecraftDefaultFoliage;
-        }
+    public HardcodedColors getDefaultFoliage() {
+        return defaultFoliage;
     }
 
-    public HardcodedColors getMinecraftSpruceFoliage() {
-        FabricLoader loader = FabricLoader.getInstance();
-        if (loader.isModLoaded("catherine")) {
-            return isabellaSpruceFoliage;
-        }
-        else {
-            return minecraftSpruceFoliage;
-        }
+    public HardcodedColors getSpruceFoliage() {
+        return spruceFoliage;
     }
 
-    public HardcodedColors getMinecraftBirchFoliage() {
-        FabricLoader loader = FabricLoader.getInstance();
-        if (loader.isModLoaded("catherine")) {
-            return isabellaBirchFoliage;
-        }
-        else {
-            return minecraftBirchFoliage;
-        }
+    public HardcodedColors getBirchFoliage() {
+        return birchFoliage;
     }
 
-    public HardcodedColors getMinecraftSwampGrass1() {
-        FabricLoader loader = FabricLoader.getInstance();
-        if (loader.isModLoaded("catherine")) {
-            return isabellaSwampGrass1;
-        }
-        else {
-            return minecraftSwampGrass1;
-        }
+    public HardcodedColors getSwampGrass1() {
+        return swampGrass1;
     }
 
-    public HardcodedColors getMinecraftSwampGrass2() {
-        FabricLoader loader = FabricLoader.getInstance();
-        if (loader.isModLoaded("catherine")) {
-            return isabellaSwampGrass2;
-        }
-        else {
-            return minecraftSwampGrass2;
-        }
+    public HardcodedColors getSwampGrass2() {
+        return swampGrass2;
     }
 
-    public HardcodedColors getMinecraftBadlandsGrass() {
-        FabricLoader loader = FabricLoader.getInstance();
-        if (loader.isModLoaded("catherine")) {
-            return isabellaBadlandsGrass;
-        }
-        else {
-            return minecraftBadlandsGrass;
-        }
+    public HardcodedColors getBadlandsGrass() {
+        return badlandsGrass;
     }
 
-    public HardcodedColors getMinecraftBadlandsFoliage() {
-        FabricLoader loader = FabricLoader.getInstance();
-        if (loader.isModLoaded("catherine")) {
-            return isabellaBadlandsFoliage;
-        }
-        else {
-            return minecraftBadlandsFoliage;
-        }
+    public HardcodedColors getBadlandsFoliage() {
+        return badlandsFoliage;
     }
 
     public boolean doTemperatureChanges() {
