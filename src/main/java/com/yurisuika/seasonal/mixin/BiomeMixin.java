@@ -4,7 +4,6 @@ import com.yurisuika.seasonal.Seasonal;
 import com.yurisuika.seasonal.colors.SeasonFoliageColors;
 import com.yurisuika.seasonal.colors.SeasonGrassColors;
 import com.yurisuika.seasonal.utils.ColorsCache;
-import com.yurisuika.seasonal.utils.Season;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -35,7 +34,7 @@ public class BiomeMixin {
             Optional<Integer> returnColor = effects.getGrassColor();
             World world = MinecraftClient.getInstance().world;
             if(world != null) {
-                Optional<Integer> badlandsGrassColor = Optional.of(Seasonal.CONFIG.getMinecraftBadlandsGrass().getColor(Seasonal.getCurrentSeason()));
+                Optional<Integer> badlandsGrassColor = Optional.of(Seasonal.CONFIG.getBadlandsGrass().getColor(Seasonal.getCurrentSeason()));
                 if(badlandsGrassColor.isPresent()) {
                     returnColor = badlandsGrassColor;
                 }
@@ -69,7 +68,7 @@ public class BiomeMixin {
             Optional<Integer> returnColor = effects.getFoliageColor();
             World world = MinecraftClient.getInstance().world;
             if(world != null) {
-                Optional<Integer> badlandsFoliageColor = Optional.of(Seasonal.CONFIG.getMinecraftBadlandsFoliage().getColor(Seasonal.getCurrentSeason()));
+                Optional<Integer> badlandsFoliageColor = Optional.of(Seasonal.CONFIG.getBadlandsFoliage().getColor(Seasonal.getCurrentSeason()));
                 if(badlandsFoliageColor.isPresent()) {
                     returnColor = badlandsFoliageColor;
                 }
@@ -97,8 +96,8 @@ public class BiomeMixin {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/BiomeEffects$GrassColorModifier;getModifiedGrassColor(DDI)I"), method = "getGrassColorAt")
     public int getSeasonModifiedGrassColor(BiomeEffects.GrassColorModifier gcm, double x, double z, int color) {
         if(gcm == BiomeEffects.GrassColorModifier.SWAMP) {
-            int swampColor1 = Seasonal.CONFIG.getMinecraftSwampGrass1().getColor(Seasonal.getCurrentSeason());
-            int swampColor2 = Seasonal.CONFIG.getMinecraftSwampGrass2().getColor(Seasonal.getCurrentSeason());
+            int swampColor1 = Seasonal.CONFIG.getSwampGrass1().getColor(Seasonal.getCurrentSeason());
+            int swampColor2 = Seasonal.CONFIG.getSwampGrass2().getColor(Seasonal.getCurrentSeason());
 
             double d = Biome.FOLIAGE_NOISE.sample(x * 0.0225D, z * 0.0225D, false);
             return d < -0.1D ? swampColor1 : swampColor2;

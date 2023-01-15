@@ -49,4 +49,5 @@ public class SeasonFoliageColormapResourceSupplier implements SimpleSynchronousR
             throw new IllegalStateException("Failed to load foliage color texture", e);
         }
     }
+
 }

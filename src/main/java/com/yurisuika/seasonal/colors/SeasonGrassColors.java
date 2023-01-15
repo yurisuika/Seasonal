@@ -91,4 +91,5 @@ public class SeasonGrassColors {
         }
         return k > earlySpringColorMap.length ? -65281 : earlySpringColorMap[k];
     }
+
 }

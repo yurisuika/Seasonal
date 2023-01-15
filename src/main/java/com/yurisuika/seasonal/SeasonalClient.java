@@ -84,4 +84,5 @@ public class SeasonalClient implements ClientModInitializer {
         //Since we're replacing the Blocks.ICE entry we have to manually add the default ice block to the translucent render layer
         BlockRenderLayerMap.INSTANCE.putBlock(Registry.BLOCK.get(new Identifier("ice")), RenderLayer.getTranslucent());
     }
+
 }

@@ -49,4 +49,5 @@ public class SeasonGrassColormapResourceSupplier implements SimpleSynchronousRes
             throw new IllegalStateException("Failed to load grass color texture", e);
         }
     }
+
 }

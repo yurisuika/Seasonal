@@ -39,4 +39,5 @@ public enum Season implements StringIdentifiable {
             default -> Season.MID_SPRING;
         };
     }
+
 }

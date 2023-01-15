@@ -39,4 +39,5 @@ public class SeasonalIceBlock extends IceBlock {
     public Item asItem() {
         return Seasonal.ORIGINAL_ICE.asItem();
     }
+
 }
