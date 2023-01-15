@@ -19,48 +19,95 @@ public class ModConfig {
     }
 
     public static class HardcodedColors {
-        public int earlySpringColor;
-        public int midSpringColor;
-        public int lateSpringColor;
-        public int earlySummerColor;
-        public int midSummerColor;
-        public int lateSummerColor;
-        public int earlyAutumnColor;
-        public int midAutumnColor;
-        public int lateAutumnColor;
-        public int earlyWinterColor;
-        public int midWinterColor;
-        public int lateWinterColor;
+        public int earlySpring;
+        public int midSpring;
+        public int lateSpring;
+        public int earlySummer;
+        public int midSummer;
+        public int lateSummer;
+        public int earlyAutumn;
+        public int midAutumn;
+        public int lateAutumn;
+        public int earlyWinter;
+        public int midWinter;
+        public int lateWinter;
 
-        public HardcodedColors(int earlySpringColor, int midSpringColor, int lateSpringColor, int earlySummerColor, int midSummerColor, int lateSummerColor, int earlyAutumnColor, int midAutumnColor, int lateAutumnColor, int earlyWinterColor, int midWinterColor, int lateWinterColor) {
-            this.earlySpringColor = earlySpringColor;
-            this.midSpringColor = midSpringColor;
-            this.lateSpringColor = lateSpringColor;
-            this.earlySummerColor = earlySummerColor;
-            this.midSummerColor = midSummerColor;
-            this.lateSummerColor = lateSummerColor;
-            this.earlyAutumnColor = earlyAutumnColor;
-            this.midAutumnColor = midAutumnColor;
-            this.lateAutumnColor = lateAutumnColor;
-            this.earlyWinterColor = earlyWinterColor;
-            this.midWinterColor = midWinterColor;
-            this.lateWinterColor = lateWinterColor;
+        public HardcodedColors(int earlySpring, int midSpring, int lateSpring, int earlySummer, int midSummer, int lateSummer, int earlyAutumn, int midAutumn, int lateAutumn, int earlyWinter, int midWinter, int lateWinter) {
+            this.earlySpring = earlySpring;
+            this.midSpring = midSpring;
+            this.lateSpring = lateSpring;
+            this.earlySummer = earlySummer;
+            this.midSummer = midSummer;
+            this.lateSummer = lateSummer;
+            this.earlyAutumn = earlyAutumn;
+            this.midAutumn = midAutumn;
+            this.lateAutumn = lateAutumn;
+            this.earlyWinter = earlyWinter;
+            this.midWinter = midWinter;
+            this.lateWinter = lateWinter;
         }
 
         public int getColor(Season season) {
             return switch (season) {
-                case EARLY_SPRING -> earlySpringColor;
-                case MID_SPRING -> midSpringColor;
-                case LATE_SPRING -> lateSpringColor;
-                case EARLY_SUMMER -> earlySummerColor;
-                case MID_SUMMER -> midSummerColor;
-                case LATE_SUMMER -> lateSummerColor;
-                case EARLY_AUTUMN -> earlyAutumnColor;
-                case MID_AUTUMN -> midAutumnColor;
-                case LATE_AUTUMN -> lateAutumnColor;
-                case EARLY_WINTER -> earlyWinterColor;
-                case MID_WINTER -> midWinterColor;
-                case LATE_WINTER -> lateWinterColor;
+                case EARLY_SPRING -> earlySpring;
+                case MID_SPRING -> midSpring;
+                case LATE_SPRING -> lateSpring;
+                case EARLY_SUMMER -> earlySummer;
+                case MID_SUMMER -> midSummer;
+                case LATE_SUMMER -> lateSummer;
+                case EARLY_AUTUMN -> earlyAutumn;
+                case MID_AUTUMN -> midAutumn;
+                case LATE_AUTUMN -> lateAutumn;
+                case EARLY_WINTER -> earlyWinter;
+                case MID_WINTER -> midWinter;
+                case LATE_WINTER -> lateWinter;
+            };
+        }
+    }
+
+    public static class SpawnRateFactor {
+        public double earlySpring;
+        public double midSpring;
+        public double lateSpring;
+        public double earlySummer;
+        public double midSummer;
+        public double lateSummer;
+        public double earlyAutumn;
+        public double midAutumn;
+        public double lateAutumn;
+        public double earlyWinter;
+        public double midWinter;
+        public double lateWinter;
+
+        public SpawnRateFactor(double earlySpring, double midSpring, double lateSpring, double earlySummer, double midSummer, double lateSummer, double earlyAutumn, double midAutumn, double lateAutumn, double earlyWinter, double midWinter, double lateWinter) {
+            this.earlySpring = earlySpring;
+            this.midSpring = midSpring;
+            this.lateSpring = lateSpring;
+            this.earlySummer = earlySummer;
+            this.midSummer = midSummer;
+            this.lateSummer = lateSummer;
+            this.earlyAutumn = earlyAutumn;
+            this.midAutumn = midAutumn;
+            this.lateAutumn = lateAutumn;
+            this.earlyWinter = earlyWinter;
+            this.midWinter = midWinter;
+            this.lateWinter = lateWinter;
+        }
+
+        public double getFactor(Season season) {
+            return switch (season) {
+                case EARLY_SPRING -> earlySpring;
+                case MID_SPRING -> midSpring;
+                case LATE_SPRING -> lateSpring;
+                case EARLY_SUMMER -> earlySummer;
+                case MID_SUMMER -> midSummer;
+                case LATE_SUMMER -> lateSummer;
+                case EARLY_AUTUMN -> earlyAutumn;
+                case MID_AUTUMN -> midAutumn;
+                case LATE_AUTUMN -> lateAutumn;
+                case EARLY_WINTER -> earlyWinter;
+                case MID_WINTER -> midWinter;
+                case LATE_WINTER -> lateWinter;
             };
         }
     }
@@ -82,7 +129,6 @@ public class ModConfig {
 
     }
 
-
     public int seasonLength = 240000;
 
     public SeasonLock seasonLock = new SeasonLock();
@@ -102,6 +148,8 @@ public class ModConfig {
     public HardcodedColors swampGrass2 = new HardcodedColors(0x627336, 0x607335, 0x627336, 0x637236, 0x657137, 0x677138, 0x687038, 0x6A7039, 0x687038, 0x677138, 0x657137, 0x637236);
     public HardcodedColors badlandsGrass = new HardcodedColors(0x907B4D, 0x90814D, 0x907B4D, 0x90764D, 0x90704D, 0x906B4D, 0x90654D, 0x90604D, 0x90654D, 0x906B4D, 0x90704D, 0x90764D);
     public HardcodedColors badlandsFoliage = new HardcodedColors(0x9E7E4D, 0x9E814D, 0x9E7E4D, 0x9E7C4D, 0x9E794D, 0x9E764D, 0x9E744D, 0x9E714D, 0x9E744D, 0x9E764D, 0x9E794D, 0x9E7C4D);
+
+    public SpawnRateFactor spawnRateFactor = new SpawnRateFactor(0.05D, 0.1D, 0.25D, 0.75D, 1.0D, 1.5D, 1.75D, 2.0D, 1.5D, 0.75D, 0.25D, 0.1D );
 
     public boolean isDefaultHSBShiftEnabled = false;
 
@@ -294,7 +342,7 @@ public class ModConfig {
         return config.map(cropConfig -> cropConfig.getModifier(season)).orElse(defaultCropConfig.getModifier(season));
     }
 
-    public boolean doAnimalsBreedInWinter = false;
+    public boolean doAnimalsBreedInWinter = true;
 
     public boolean doAnimalsBreedInWinter() {
         return doAnimalsBreedInWinter;
@@ -340,6 +388,10 @@ public class ModConfig {
         return badlandsFoliage;
     }
 
+    public SpawnRateFactor getSpawnRateFactor() {
+        return spawnRateFactor;
+    }
+
     public boolean doTemperatureChanges() {
         return doTemperatureChanges;
     }
@@ -367,4 +419,5 @@ public class ModConfig {
     public boolean isInNorthHemisphere() {
         return isInNorthHemisphere;
     }
+
 }

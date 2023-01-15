@@ -38,4 +38,5 @@ public class SeasonalSnowBlock extends SnowBlock {
     public Item asItem() {
         return Seasonal.ORIGINAL_SNOW.asItem();
     }
+
 }

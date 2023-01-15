@@ -4,9 +4,9 @@ import com.yurisuika.seasonal.Seasonal;
 import com.yurisuika.seasonal.colors.SeasonFoliageColors;
 import com.yurisuika.seasonal.colors.SeasonGrassColors;
 import com.yurisuika.seasonal.utils.ColorsCache;
+import net.fabricmc.fabric.api.tag.client.v1.ClientTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Optional;
+
+import static net.minecraft.registry.RegistryKeys.BIOME;
 
 @Mixin(Biome.class)
 public class BiomeMixin {
@@ -29,7 +31,7 @@ public class BiomeMixin {
         if(ColorsCache.hasGrassCache(biome)) {
             return ColorsCache.getGrassCache(biome);
         }
-        else if(RegistryEntry.of(biome).isIn(BiomeTags.IS_BADLANDS)) {
+        else if(ClientTags.isInLocal(BiomeTags.IS_BADLANDS, RegistryKey.of(BIOME, world.getRegistryManager().get(BIOME).getId(biome)))) {
             Optional<Integer> returnColor = effects.getGrassColor();
             if(world != null) {
                 Optional<Integer> badlandsGrassColor = Optional.of(Seasonal.CONFIG.getBadlandsGrass().getColor(Seasonal.getCurrentSeason()));
@@ -62,7 +64,7 @@ public class BiomeMixin {
         if(ColorsCache.hasFoliageCache(biome)) {
             return ColorsCache.getFoliageCache(biome);
         }
-        else if(RegistryEntry.of(biome).isIn(BiomeTags.IS_BADLANDS)) {
+        else if(ClientTags.isInLocal(BiomeTags.IS_BADLANDS, RegistryKey.of(BIOME, world.getRegistryManager().get(BIOME).getId(biome)))) {
             Optional<Integer> returnColor = effects.getFoliageColor();
             if(world != null) {
                 Optional<Integer> badlandsFoliageColor = Optional.of(Seasonal.CONFIG.getBadlandsFoliage().getColor(Seasonal.getCurrentSeason()));
