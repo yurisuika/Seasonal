@@ -4,8 +4,6 @@
 
 If you plan to use this with OptiFabric + OptiFine you *MUST* turn Custom Colors `OFF` and turn Swamp Colors `ON` unless you want all the colors to be broken!
 
-Seasonal also supports colors for the *[Isabella](https://github.com/yurisuika/Isabella)* resource pack through the Fabric companion mod *[Catherine](https://github.com/yurisuika/Catherine)*!
-
 #### Compiling
 
 To build from source you will need have JDK 17 to compile and, optionally, Git to clone the repository. Otherwise, download the archive and just run `./gradlew build` from the root project folder.
@@ -13,7 +11,7 @@ To build from source you will need have JDK 17 to compile and, optionally, Git t
 When using Git, just choose a directory you wish to keep the project root folder in, decide which branch you wish to compile, and then run these commands:
 
 ```shell script
-git clone --branch Fabric-1.18 --recursive https://github.com/yurisuika/seasonal.git
+git clone --branch Fabric-1.19 --recursive https://github.com/yurisuika/seasonal.git
 
 cd ./seasonal
 
