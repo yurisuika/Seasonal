@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/yurisuika/Seasonal/blob/Fabric-1.18/src/main/resources/assets/seasonal/icon.png?raw=true" width="256" height="256"></p>
+<p align="center"><img src="https://github.com/yurisuika/Seasonal/blob/Fabric-1.18.2/src/main/resources/assets/seasonal/icon.png?raw=true" width="256" height="256"></p>
 
 **Seasonal** is a Fabric mod for Minecraft, a fork of *[Fabric Seasons](https://github.com/lucaargolo/fabric-seasons)*, that adds seasons to the game. What is different? All non-technical blocks and items have been removed to take seasons to their most basic form. As well, sub-seasons have been added for more gradual transitions of time in both color and plant growth!
 
