@@ -1,7 +1,6 @@
 package com.yurisuika.seasonal.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-
 import com.yurisuika.seasonal.Seasonal;
 import com.yurisuika.seasonal.utils.Season;
 import net.minecraft.command.CommandRegistryAccess;

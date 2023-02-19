@@ -22,12 +22,12 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.tag.BiomeTags;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.apache.logging.log4j.LogManager;
@@ -96,7 +96,7 @@ public class Seasonal implements ModInitializer {
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             SEEDS_MAP.clear();
-            Registries.ITEM.forEach(item -> {
+            Registry.ITEM.forEach(item -> {
                 if(item instanceof BlockItem) {
                     Block block = ((BlockItem) item).getBlock();
                     if(block instanceof CropBlock || block instanceof StemBlock || block instanceof CocoaBlock || block instanceof SaplingBlock) {
@@ -228,7 +228,7 @@ public class Seasonal implements ModInitializer {
 
         Season season = Seasonal.getCurrentSeason(world);
 
-        Identifier biomeIdentifier = biome.getKey().get().getValue();
+        Identifier biomeIdentifier = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome.value());
         Biome.Weather currentWeather = biome.value().weather;
 
         Biome.Weather originalWeather;

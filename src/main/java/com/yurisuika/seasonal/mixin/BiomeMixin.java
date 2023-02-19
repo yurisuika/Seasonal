@@ -6,9 +6,9 @@ import com.yurisuika.seasonal.colors.SeasonGrassColors;
 import com.yurisuika.seasonal.utils.ColorsCache;
 import net.fabricmc.fabric.api.tag.client.v1.ClientTags;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.tag.BiomeTags;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Optional;
 
-import static net.minecraft.registry.RegistryKeys.BIOME;
+import static net.minecraft.util.registry.Registry.BIOME_KEY;
 
 @Mixin(Biome.class)
 public class BiomeMixin {
@@ -31,7 +31,7 @@ public class BiomeMixin {
         if(ColorsCache.hasGrassCache(biome)) {
             return ColorsCache.getGrassCache(biome);
         }
-        else if(ClientTags.isInLocal(BiomeTags.IS_BADLANDS, RegistryKey.of(BIOME, world.getRegistryManager().get(BIOME).getId(biome)))) {
+        else if(ClientTags.isInLocal(BiomeTags.IS_BADLANDS, RegistryKey.of(BIOME_KEY, world.getRegistryManager().get(BIOME_KEY).getId(biome)))) {
             Optional<Integer> returnColor = effects.getGrassColor();
             if(world != null) {
                 Optional<Integer> badlandsGrassColor = Optional.of(Seasonal.CONFIG.getBadlandsGrass().getColor(Seasonal.getCurrentSeason()));
@@ -45,7 +45,7 @@ public class BiomeMixin {
         else {
             Optional<Integer> returnColor = effects.getGrassColor();
             if(world != null) {
-                Identifier biomeIdentifier = world.getRegistryManager().get(RegistryKey.ofRegistry(world.getRegistryKey().getRegistry())).getId(biome);
+                Identifier biomeIdentifier = world.getRegistryManager().get(BIOME_KEY).getId(biome);
                 Optional<Integer> seasonGrassColor = Seasonal.CONFIG.getSeasonGrassColor(biome, biomeIdentifier, Seasonal.getCurrentSeason());
                 if(seasonGrassColor.isPresent()) {
                     returnColor = seasonGrassColor;
@@ -64,7 +64,7 @@ public class BiomeMixin {
         if(ColorsCache.hasFoliageCache(biome)) {
             return ColorsCache.getFoliageCache(biome);
         }
-        else if(ClientTags.isInLocal(BiomeTags.IS_BADLANDS, RegistryKey.of(BIOME, world.getRegistryManager().get(BIOME).getId(biome)))) {
+        else if(ClientTags.isInLocal(BiomeTags.IS_BADLANDS, RegistryKey.of(BIOME_KEY, world.getRegistryManager().get(BIOME_KEY).getId(biome)))) {
             Optional<Integer> returnColor = effects.getFoliageColor();
             if(world != null) {
                 Optional<Integer> badlandsFoliageColor = Optional.of(Seasonal.CONFIG.getBadlandsFoliage().getColor(Seasonal.getCurrentSeason()));
@@ -78,7 +78,7 @@ public class BiomeMixin {
         else{
             Optional<Integer> returnColor = effects.getFoliageColor();
             if(world != null) {
-                Identifier biomeIdentifier = world.getRegistryManager().get(RegistryKey.ofRegistry(world.getRegistryKey().getRegistry())).getId(biome);
+                Identifier biomeIdentifier = world.getRegistryManager().get(BIOME_KEY).getId(biome);
                 Optional<Integer> seasonFoliageColor = Seasonal.CONFIG.getSeasonFoliageColor(biome, biomeIdentifier, Seasonal.getCurrentSeason());
                 if(seasonFoliageColor.isPresent()) {
                     returnColor = seasonFoliageColor;

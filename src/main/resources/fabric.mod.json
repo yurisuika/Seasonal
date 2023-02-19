@@ -12,8 +12,8 @@
     "yurisuika"
   ],
   "contact": {
-    "homepage": "https://github.com/yurisuika/Seasons",
-    "sources": "https://github.com/yurisuika/Seasons"
+    "homepage": "https://github.com/yurisuika/Seasonal",
+    "sources": "https://github.com/yurisuika/Seasonal"
   },
 
   "license": "Mozilla Public License 2.0",
@@ -37,7 +37,7 @@
   "depends": {
     "fabricloader": ">=0.13.3",
     "fabric": "*",
-    "minecraft": ">=1.19.3",
+    "minecraft": "1.19.x",
     "java": ">=17"
   },
   "suggests": {

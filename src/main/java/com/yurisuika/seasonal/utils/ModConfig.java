@@ -1,7 +1,7 @@
 package com.yurisuika.seasonal.utils;
 
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
@@ -419,5 +419,5 @@ public class ModConfig {
     public boolean isInNorthHemisphere() {
         return isInNorthHemisphere;
     }
-
+    
 }

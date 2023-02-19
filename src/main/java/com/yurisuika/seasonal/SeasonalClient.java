@@ -16,10 +16,10 @@ import net.minecraft.block.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.BlockItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class SeasonalClient implements ClientModInitializer {
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             Seasonal.SEEDS_MAP.clear();
-            Registries.ITEM.forEach(item -> {
+            Registry.ITEM.forEach(item -> {
                 if(item instanceof BlockItem) {
                     Block block = ((BlockItem) item).getBlock();
                     if(block instanceof CropBlock || block instanceof StemBlock || block instanceof CocoaBlock || block instanceof SaplingBlock) {
@@ -82,6 +82,7 @@ public class SeasonalClient implements ClientModInitializer {
         }));
 
         //Since we're replacing the Blocks.ICE entry we have to manually add the default ice block to the translucent render layer
-        BlockRenderLayerMap.INSTANCE.putBlock(Registries.BLOCK.get(new Identifier("ice")), RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(Registry.BLOCK.get(new Identifier("ice")), RenderLayer.getTranslucent());
     }
+
 }
